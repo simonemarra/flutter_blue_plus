@@ -569,6 +569,15 @@ typedef NS_ENUM(NSUInteger, LogLevel) {
   [_channel invokeMethod:@"ReadRssiResult" arguments:[self toFlutterData:result]];
 }
 
+// Just to avoid a console warning and show invalidated services, no operations are done on flutter side...
+- (void)peripheral:(CBPeripheral *)peripheral didModifyServices:(NSArray<CBService *> *)invalidatedServices {
+  NSLog(@"didModifyServices");
+  // List all invalidated services
+  for(CBService *s in invalidatedServices) {
+    NSLog(@"Invalidated service: %@", [s.UUID UUIDString]);
+  }
+}
+
 //
 // Proto Helper methods
 //
